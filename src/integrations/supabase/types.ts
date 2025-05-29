@@ -9,7 +9,132 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          created_at: string | null
+          full_name: string
+          id: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          full_name: string
+          id?: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          full_name?: string
+          id?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      qr_profiles: {
+        Row: {
+          brochure_description: string | null
+          brochure_title: string | null
+          brochure_url: string | null
+          created_at: string | null
+          email_address: string | null
+          id: string
+          is_active: boolean | null
+          phone_number: string | null
+          profile_name: string
+          profile_type: Database["public"]["Enums"]["profile_type"]
+          updated_at: string | null
+          user_id: string
+          vcard_address: string | null
+          vcard_company_name: string | null
+          vcard_company_number: string | null
+          vcard_email: string | null
+          vcard_full_name: string | null
+          vcard_linkedin: string | null
+          vcard_mobile_number: string | null
+          vcard_title: string | null
+          vcard_website: string | null
+          website_url: string | null
+          whatsapp_message: string | null
+          whatsapp_number: string | null
+        }
+        Insert: {
+          brochure_description?: string | null
+          brochure_title?: string | null
+          brochure_url?: string | null
+          created_at?: string | null
+          email_address?: string | null
+          id?: string
+          is_active?: boolean | null
+          phone_number?: string | null
+          profile_name: string
+          profile_type: Database["public"]["Enums"]["profile_type"]
+          updated_at?: string | null
+          user_id: string
+          vcard_address?: string | null
+          vcard_company_name?: string | null
+          vcard_company_number?: string | null
+          vcard_email?: string | null
+          vcard_full_name?: string | null
+          vcard_linkedin?: string | null
+          vcard_mobile_number?: string | null
+          vcard_title?: string | null
+          vcard_website?: string | null
+          website_url?: string | null
+          whatsapp_message?: string | null
+          whatsapp_number?: string | null
+        }
+        Update: {
+          brochure_description?: string | null
+          brochure_title?: string | null
+          brochure_url?: string | null
+          created_at?: string | null
+          email_address?: string | null
+          id?: string
+          is_active?: boolean | null
+          phone_number?: string | null
+          profile_name?: string
+          profile_type?: Database["public"]["Enums"]["profile_type"]
+          updated_at?: string | null
+          user_id?: string
+          vcard_address?: string | null
+          vcard_company_name?: string | null
+          vcard_company_number?: string | null
+          vcard_email?: string | null
+          vcard_full_name?: string | null
+          vcard_linkedin?: string | null
+          vcard_mobile_number?: string | null
+          vcard_title?: string | null
+          vcard_website?: string | null
+          website_url?: string | null
+          whatsapp_message?: string | null
+          whatsapp_number?: string | null
+        }
+        Relationships: []
+      }
+      user_qr_codes: {
+        Row: {
+          created_at: string | null
+          id: string
+          qr_code_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          qr_code_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          qr_code_id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -18,7 +143,13 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      profile_type:
+        | "website"
+        | "email"
+        | "phone"
+        | "whatsapp"
+        | "brochure"
+        | "vcard"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -133,6 +264,15 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      profile_type: [
+        "website",
+        "email",
+        "phone",
+        "whatsapp",
+        "brochure",
+        "vcard",
+      ],
+    },
   },
 } as const

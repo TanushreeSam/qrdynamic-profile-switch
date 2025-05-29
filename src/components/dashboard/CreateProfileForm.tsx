@@ -9,6 +9,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
+import type { Database } from '@/integrations/supabase/types';
+
+type ProfileType = Database['public']['Enums']['profile_type'];
 
 interface CreateProfileFormProps {
   onSuccess: () => void;
@@ -19,7 +22,7 @@ export const CreateProfileForm: React.FC<CreateProfileFormProps> = ({ onSuccess,
   const { user } = useAuth();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
-  const [profileType, setProfileType] = useState<string>('');
+  const [profileType, setProfileType] = useState<ProfileType | ''>('');
   const [formData, setFormData] = useState({
     profile_name: '',
     website_url: '',
@@ -61,14 +64,14 @@ export const CreateProfileForm: React.FC<CreateProfileFormProps> = ({ onSuccess,
       const profileData = {
         user_id: user?.id,
         profile_name: formData.profile_name,
-        profile_type: profileType,
+        profile_type: profileType as ProfileType,
         is_active: false,
         ...formData,
       };
 
       const { error } = await supabase
         .from('qr_profiles')
-        .insert([profileData]);
+        .insert(profileData);
 
       if (error) throw error;
 
@@ -323,7 +326,7 @@ export const CreateProfileForm: React.FC<CreateProfileFormProps> = ({ onSuccess,
 
           <div>
             <Label htmlFor="profile_type">Profile Type</Label>
-            <Select value={profileType} onValueChange={setProfileType}>
+            <Select value={profileType} onValueChange={(value: ProfileType) => setProfileType(value)}>
               <SelectTrigger>
                 <SelectValue placeholder="Select profile type" />
               </SelectTrigger>
